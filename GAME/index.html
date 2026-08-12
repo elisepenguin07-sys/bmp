@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Two-Player Math Tug</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="panel left" id="left-panel">
+      <div class="player-header">Blue Team</div>
+      <div class="question" id="q-left">?</div>
+      <div class="display" id="disp-left"> </div>
+      <div class="pad" data-side="left" id="pad-left"></div>
+      <div class="msg" id="msg-left"></div>
+      <div class="score">Score: <span id="score-left">0</span></div>
+    </div>
+
+    <div class="center">
+      <div class="tug-stage">
+        <div class="people left-people">👱‍♀️🧑</div>
+        <div class="rope" id="rope">
+          <div class="flag">🚩</div>
+          <div class="rope-line"></div>
+        </div>
+        <div class="people right-people">👱️👩‍🦰</div>
+      </div>
+      <div class="status">First to create 20-point lead wins</div>
+    </div>
+
+    <div class="panel right" id="right-panel">
+      <div class="player-header">Red Team</div>
+      <div class="question" id="q-right">?</div>
+      <div class="display" id="disp-right"> </div>
+      <div class="pad" data-side="right" id="pad-right"></div>
+      <div class="msg" id="msg-right"></div>
+      <div class="score">Score: <span id="score-right">0</span></div>
+    </div>
+  </div>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="winner" id="winner-text"></div>
+    <button id="reset-btn">Play Again</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
