@@ -31,23 +31,24 @@ function setupPads(){
     pad.innerHTML='';
     for(let d=1;d<=9;d++){
       const btn=document.createElement('button'); btn.textContent=d;
-      btn.onclick=()=>digit(side,d);
+      btn.onclick=()=>digit(side,String(d));
       pad.appendChild(btn);
     }
-    const zero=document.createElement('button'); zero.textContent='0'; zero.onclick=()=>digit(side,0); pad.appendChild(zero);
+    const zero=document.createElement('button'); zero.textContent='0'; zero.onclick=()=>digit(side,'0'); pad.appendChild(zero);
+    const minus=document.createElement('button'); minus.textContent='-'; minus.onclick=()=>toggleMinus(side); pad.appendChild(minus);
     const clr=document.createElement('button'); clr.textContent='C'; clr.onclick=()=>clearDisp(side); pad.appendChild(clr);
     const sub=document.createElement('button'); sub.textContent='OK'; sub.onclick=()=>submitAnswer(side); pad.appendChild(sub);
   })
 }
 
 function digit(side,d){ if(state.finished) return; const s=state[side]; s.answer = (s.answer==='')? String(d) : s.answer + String(d); updateDisp(side); }
+function toggleMinus(side){ if(state.finished) return; const s=state[side]; if(s.answer.startsWith('-')) s.answer = s.answer.slice(1); else s.answer = '-' + s.answer; updateDisp(side); }
 function clearDisp(side){ if(state.finished) return; state[side].answer=''; updateDisp(side); }
 function updateDisp(side){ document.getElementById('disp-'+side).textContent = state[side].answer || ' '; }
 
 function showQuestion(side){ state[side].q = genQuestion(); state[side].start = Date.now(); state[side].answer=''; updateDisp(side); document.getElementById('q-'+side).textContent = state[side].q.text; document.getElementById('msg-'+side).textContent=''; }
 
-function submitAnswer(side){ if(state.finished) return; const s = state[side]; if(!s.q) return; const val = Number(s.answer);
-  if(s.answer==='') return;
+function submitAnswer(side){ if(state.finished) return; const s = state[side]; if(!s.q) return; if(s.answer==='' || s.answer==='-') return; const val = Number(s.answer);
   if(val === s.q.ans){
     const elapsed = Math.floor((Date.now()-s.start)/1000);
     const penalty = Math.floor(elapsed/5);
